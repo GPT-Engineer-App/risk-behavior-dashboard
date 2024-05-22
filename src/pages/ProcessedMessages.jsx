@@ -3,8 +3,8 @@ import { Box, Button, List, ListItem, Text } from "@chakra-ui/react";
 
 const ProcessedMessages = () => {
   const [messages, setMessages] = useState([
-    { id: 1, content: "Message 1" },
-    { id: 2, content: "Message 2" },
+    { id: 1, content: "Message 1", riskScore: 45, riskType: "Type A" },
+    { id: 2, content: "Message 2", riskScore: 75, riskType: "Type B" },
   ]);
 
   const removeMessage = (id) => {
@@ -20,6 +20,8 @@ const ProcessedMessages = () => {
         {messages.map((message) => (
           <ListItem key={message.id}>
             <Text>{message.content}</Text>
+            <Text>Risk Score: {message.riskScore}</Text>
+            <Text>Risk Type: {message.riskType}</Text>
             <Button colorScheme="red" onClick={() => removeMessage(message.id)}>
               Remove
             </Button>
