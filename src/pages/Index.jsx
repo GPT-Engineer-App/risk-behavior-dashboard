@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, VStack, Text, Input, Button, Textarea, Box, IconButton } from "@chakra-ui/react";
+import { Container, VStack, Text, Input, Button, Textarea, Box } from "@chakra-ui/react";
 import { FaRocket } from "react-icons/fa";
 
 const Index = () => {
@@ -7,11 +7,15 @@ const Index = () => {
   const [riskType, setRiskType] = useState("");
   const [outputText, setOutputText] = useState("");
 
+  const [riskScore, setRiskScore] = useState(0);
+
   const handleInputChange = (e) => setInputText(e.target.value);
   const handleRiskTypeChange = (e) => setRiskType(e.target.value);
   const handleSubmit = () => {
     // Placeholder for processing logic
+    const score = Math.floor(Math.random() * 100) + 1;
     setOutputText(`Processed: ${inputText} with risk type: ${riskType}`);
+    setRiskScore(score);
   };
 
   return (
@@ -26,6 +30,11 @@ const Index = () => {
         {outputText && (
           <Box p={4} borderWidth={1} borderRadius="md" width="100%">
             <Text>{outputText}</Text>
+          </Box>
+        )}
+        {outputText && (
+          <Box p={4} borderWidth={1} borderRadius="md" width="100%">
+            <Text>Risk Score: {riskScore}</Text>
           </Box>
         )}
       </VStack>
