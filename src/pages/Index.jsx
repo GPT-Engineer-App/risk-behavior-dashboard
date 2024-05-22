@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, VStack, Text, Input, Button, Textarea, Box } from "@chakra-ui/react";
+import { Container, VStack, Text, Input, Button, Textarea, Box, Link } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { FaRocket } from "react-icons/fa";
 
 const Index = () => {
@@ -9,11 +10,16 @@ const Index = () => {
 
   const [riskScore, setRiskScore] = useState(0);
 
+  const navigate = useNavigate();
+  const [processedMessages, setProcessedMessages] = useState([]);
+
   const handleInputChange = (e) => setInputText(e.target.value);
   const handleRiskTypeChange = (e) => setRiskType(e.target.value);
   const handleSubmit = () => {
     // Placeholder for processing logic
     const score = Math.floor(Math.random() * 100) + 1;
+    const newMessage = { text: inputText, riskType, riskScore: score };
+    setProcessedMessages([...processedMessages, newMessage]);
     setOutputText(`Processed: ${inputText} with risk type: ${riskType}`);
     setRiskScore(score);
   };
@@ -37,6 +43,7 @@ const Index = () => {
             <Text>Risk Score: {riskScore}</Text>
           </Box>
         )}
+        <Link onClick={() => navigate("/processed-messages")}>View Processed Messages</Link>
       </VStack>
     </Container>
   );
