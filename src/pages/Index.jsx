@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, VStack, Text, Input, Button, Textarea, Box, Link, Spinner } from "@chakra-ui/react";
+import { Container, VStack, Text, Input, Button, Textarea, Box, Link } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaRocket } from "react-icons/fa";
 
@@ -9,35 +9,19 @@ const Index = () => {
   const [outputText, setOutputText] = useState("");
 
   const [riskScore, setRiskScore] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const [processedMessages, setProcessedMessages] = useState([]);
 
   const handleInputChange = (e) => setInputText(e.target.value);
   const handleRiskTypeChange = (e) => setRiskType(e.target.value);
-  const handleSubmit = async () => {
-    setLoading(true);
+  const handleSubmit = () => {
     // Placeholder for processing logic
-    try {
-      const response = await fetch("https://api.chatgpt.com/analyze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: inputText }),
-      });
-      const data = await response.json();
-      const score = Math.floor(Math.random() * 100) + 1;
-      const newMessage = { text: inputText, riskType, riskScore: score, description: data.description };
-      setProcessedMessages([...processedMessages, newMessage]);
-      setOutputText(`Processed: ${inputText} with risk type: ${riskType}`);
-      setRiskScore(score);
-    } catch (error) {
-      console.error("Error processing message:", error);
-    } finally {
-      setLoading(false);
-    }
+    const score = Math.floor(Math.random() * 100) + 1;
+    const newMessage = { text: inputText, riskType, riskScore: score };
+    setProcessedMessages([...processedMessages, newMessage]);
+    setOutputText(`Processed: ${inputText} with risk type: ${riskType}`);
+    setRiskScore(score);
   };
 
   return (
@@ -46,7 +30,7 @@ const Index = () => {
         <Text fontSize="2xl">LLM Dashboard</Text>
         <Input placeholder="Enter risk type" value={riskType} onChange={handleRiskTypeChange} />
         <Textarea placeholder="Enter your sentence here" value={inputText} onChange={handleInputChange} />
-        <Button onClick={handleSubmit} colorScheme="teal" leftIcon={<FaRocket />} isLoading={loading}>
+        <Button onClick={handleSubmit} colorScheme="teal" leftIcon={<FaRocket />}>
           Submit
         </Button>
         {outputText && (
