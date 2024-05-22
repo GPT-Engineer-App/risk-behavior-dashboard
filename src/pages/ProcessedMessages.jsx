@@ -19,9 +19,9 @@ const ProcessedMessages = () => {
       <List spacing={3}>
         {messages.map((message) => (
           <ListItem key={message.id}>
-            <Text>{message.content}</Text>
+            <Text>Sentence: {message.content}</Text>
             <Text>Risk Score: {message.riskScore}</Text>
-            <Text>Risk Type: {message.riskType}</Text>
+            <Text>Risk Behaviour: {message.riskType}</Text>
             <Button colorScheme="red" onClick={() => removeMessage(message.id)}>
               Remove
             </Button>
